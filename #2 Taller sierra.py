@@ -1,37 +1,49 @@
 #2 Taller Sierra ej 2
-tarjetas = [
-    ["1234567890", "1234", 10000],
-    ["0987654321", "4321", 5000],
-    ["5678901234", "5678", 20000]
-]
+def buscar_tarjeta(numero_tarjeta, tarjetas):
+    for tarjeta in tarjetas:
+        if tarjeta[0] == numero_tarjeta:
+            return tarjeta
+    return None
 
-numero_tarjeta = input("Ingrese el número de tarjeta: ")
+def verificar_clave(tarjeta, clave):
+    return tarjeta[1] == clave
 
-tarjeta_valida = None
-for tarjeta in tarjetas:
-    if tarjeta[0] == numero_tarjeta:
-        tarjeta_valida = tarjeta
-        break
+def retirar_dinero(tarjeta, monto):
+    if monto <= tarjeta[2]:
+        tarjeta[2] -= monto
+        return True
+    return False
 
-if tarjeta_valida is not None:
-    clave = input("Ingrese la clave: ")
+def main():
+    tarjetas = [
+        ["1234567890", "1234", 10000],
+        ["0987654321", "4321", 5000],
+        ["5678901234", "5678", 20000]
+    ]
 
+    numero_tarjeta = input("Ingrese el número de tarjeta: ")
+    tarjeta_valida = buscar_tarjeta(numero_tarjeta, tarjetas)
 
-    if clave == tarjeta_valida[1]:
-        if tarjeta_valida[2] >= 10000:
-            monto_a_retirar = int(input("Ingrese el monto a retirar: "))
+    if tarjeta_valida is not None:
+        clave = input("Ingrese la clave: ")
 
-            if monto_a_retirar <= tarjeta_valida[2]:
-                tarjeta_valida[2] -= monto_a_retirar
+        if verificar_clave(tarjeta_valida, clave):
+            if tarjeta_valida[2] >= 10000:
+                monto_a_retirar = int(input("Ingrese el monto a retirar: "))
 
-                print(f"Retire su dinero: ${monto_a_retirar}")
-                print(f"Saldo restante en la tarjeta: ${tarjeta_valida[2]}")
+                if retirar_dinero(tarjeta_valida, monto_a_retirar):
+                    print(f"Retire su dinero: ${monto_a_retirar}")
+                    print(f"Saldo restante en la tarjeta: ${tarjeta_valida[2]}")
+                else:
+                    print("El monto a retirar es mayor que el saldo disponible.")
             else:
-                print("El monto a retirar es mayor que el saldo disponible.")
+                print("El saldo en la tarjeta es insuficiente para realizar un retiro de $10,000.")
         else:
-            print("El saldo en la tarjeta es insuficiente para realizar un retiro de $10,000.")
+            print("La clave ingresada no es válida.")
     else:
-        print("La clave ingresada no es válida.")
-else:
-    print("El número de tarjeta no es válido.")
+        print("El número de tarjeta no es válido")
+
+if __name__ == "__main__":
+    main()
+
 
