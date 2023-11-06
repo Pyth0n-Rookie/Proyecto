@@ -1,4 +1,4 @@
-#2 Taller sierra
+#2 Taller Sierra ej 2
 tarjetas = [
     ["1234567890", "1234", 10000],
     ["0987654321", "4321", 5000],
